@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV Tailor</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-family='Helvetica' font-weight='700' font-size='15' fill='white' text-anchor='middle'%3ECV%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo">CV</span><span>CV Tailor</span></div>
+  <div class="topbar-status" id="status-bar" title="État des dépendances"></div>
+  <div class="topbar-actions">
+    <button class="btn ghost" id="btn-toggle-left" title="Replier / déplier le panneau gauche (⌘\)">⇤</button>
+    <button class="btn ghost" id="btn-settings" title="Réglages">⚙︎ Réglages</button>
+  </div>
+</header>
+
+<main id="layout" class="layout" data-mode="solo">
+  <!-- ======== PANNEAU GAUCHE ======== -->
+  <aside id="left" class="left">
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="offre">Offre</button>
+      <button class="tab" data-tab="analyse">Analyse <span class="badge" id="badge-analyse" hidden></span></button>
+      <button class="tab" data-tab="modeles">Modèles</button>
+      <button class="tab" data-tab="candidatures">Candidatures</button>
+    </nav>
+
+    <section class="tab-panel active" data-panel="offre">
+      <div class="panel-inner">
+        <h2>Offre d'emploi</h2>
+        <p class="hint">Colle le texte complet de l'offre : titre, missions, profil recherché. Plus le texte est complet, plus l'analyse est précise.</p>
+        <textarea id="offre-texte" placeholder="Colle ici le texte de l'offre…" spellcheck="false"></textarea>
+        <div class="row between">
+          <span class="muted" id="offre-compteur">0 caractère</span>
+          <div class="row">
+            <button class="btn ghost" id="btn-offre-vider">Vider</button>
+            <button class="btn primary" id="btn-analyser">✦ Analyser avec Claude</button>
+          </div>
+        </div>
+        <div id="analyse-progress" class="progress" hidden>
+          <div class="spinner"></div><span>Analyse en cours… <span id="analyse-chrono">0 s</span></span>
+        </div>
+        <div id="analyse-erreur" class="alert error" hidden></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="analyse">
+      <div class="panel-inner" id="analyse-panel">
+        <div class="empty">Aucune analyse pour l'instant. Colle une offre dans l'onglet <b>Offre</b> puis clique <b>Analyser</b>.</div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="modeles">
+      <div class="panel-inner">
+        <div class="row between">
+          <h2>Modèles de CV</h2>
+          <div class="row">
+            <button class="btn ghost" id="btn-modele-importer">Importer JSON</button>
+            <button class="btn" id="btn-cv-importer" title="Crée un modèle et un template à partir d'un CV existant (.docx + PDF)">Importer un CV</button>
+            <button class="btn" id="btn-modele-nouveau">+ Nouveau</button>
+          </div>
+        </div>
+        <p class="hint">Un modèle est un CV complet (contenu + design). Ouvre-le pour le modifier, ou crée une candidature à partir de lui depuis l'onglet Analyse.</p>
+        <input type="file" id="input-import-json" accept="application/json,.json" multiple hidden>
+        <div id="liste-modeles" class="cards"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="candidatures">
+      <div class="panel-inner">
+        <div class="row between">
+          <h2>Candidatures</h2>
+          <button class="btn ghost" id="btn-ouvrir-dossier-cand" title="Ouvrir data/candidatures dans l'explorateur de fichiers">Ouvrir le dossier</button>
+        </div>
+        <div id="liste-candidatures" class="cards"></div>
+      </div>
+    </section>
+  </aside>
+
+  <div id="splitter" class="splitter" title="Glisser pour redimensionner"></div>
+
+  <!-- ======== PANNEAU DROIT ======== -->
+  <section id="right" class="right" hidden>
+    <div class="toolbar">
+      <div class="doc-title">
+        <span class="doc-kind" id="doc-kind">Modèle</span>
+        <input id="doc-nom" class="doc-nom" type="text" placeholder="Nom du document">
+      </div>
+      <div class="seg" id="doc-view" role="tablist" hidden>
+        <button type="button" class="active" data-view="cv">CV</button>
+        <button type="button" data-view="lettre" title="Lettre de motivation de cette candidature">Lettre</button>
+      </div>
+      <label class="field inline cv-only"><span>Template</span><select id="sel-template"></select></label>
+      <label class="field inline cv-only"><span>Langue</span><select id="sel-langue"><option value="fr">Français</option><option value="en">English</option></select></label>
+      <div class="chips">
+        <span class="chip score" id="chip-score" hidden title="Score ATS : poids des mots-clés présents / total">ATS —</span>
+        <span class="chip overflow" id="chip-overflow" hidden></span>
+        <span class="chip save" id="chip-save">Enregistré</span>
+      </div>
+      <div class="row">
+        <button class="btn" id="btn-spell" title="Vérifier l'orthographe et la grammaire avec Claude">✓ Orthographe</button>
+        <button class="btn ghost" id="btn-export-json" title="Télécharger le CV au format JSON">JSON</button>
+        <button class="btn primary" id="btn-export-pdf" title="Exporter en PDF (⌘E)">⬇ Exporter PDF</button>
+        <button class="btn ghost" id="btn-fermer" title="Fermer (Échap)">✕</button>
+      </div>
+    </div>
+    <div class="right-body">
+      <div id="editor" class="editor"></div>
+      <div id="preview-wrap" class="preview-wrap">
+        <div id="preview-scale" class="preview-scale"><div id="preview" class="preview"></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Choix du modèle pour une candidature -->
+<dialog id="dlg-modele" class="dialog">
+  <form method="dialog">
+    <h3>Créer une candidature</h3>
+    <p class="hint" id="dlg-modele-sous-titre"></p>
+    <label class="field"><span>Modèle de CV de départ</span><select id="dlg-modele-select"></select></label>
+    <div class="row end">
+      <button class="btn ghost" value="cancel">Annuler</button>
+      <button class="btn primary" value="ok" id="dlg-modele-ok">Créer et ouvrir</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Import d'un CV existant -->
+<dialog id="dlg-import" class="dialog">
+  <form id="form-import">
+    <h3>Importer un CV existant</h3>
+    <div id="import-saisie">
+      <p class="hint">Dépose les deux versions du même CV : le <b>.docx</b> fournit le contenu, le <b>PDF</b> fournit le design. CV Tailor crée seul le modèle et un template qui reproduit la mise en page.</p>
+      <div class="dropzones" id="import-zones">
+        <label class="dropzone" data-kind="docx"><input type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+          <b>Fichier Word</b><span class="dz-name">Glisser un .docx ici ou cliquer</span><span class="btn small dz-btn">Choisir un fichier…</span></label>
+        <label class="dropzone" data-kind="pdf"><input type="file" accept=".pdf,application/pdf" hidden>
+          <b>Fichier PDF</b><span class="dz-name">Glisser un PDF ici ou cliquer</span><span class="btn small dz-btn">Choisir un fichier…</span></label>
+      </div>
+      <label class="field"><span>Nom du modèle (facultatif)</span><input id="import-nom" placeholder="ex. CV développeur 2025"></label>
+      <div class="alert info">Pour cet import uniquement, le contenu de ton CV est lu par Claude (via ta commande <code>claude</code>, abonnement claude.ai). Le reste de l'outil ne lui envoie jamais ton CV. Durée : 2 à 5 minutes.</div>
+    </div>
+    <div id="import-progress" class="progress" hidden><div class="spinner"></div><span id="import-etape">Démarrage…</span><span class="muted" id="import-chrono">0 s</span></div>
+    <div id="import-erreur" class="alert error" hidden></div>
+    <div id="import-resultat" hidden></div>
+    <div class="row end">
+      <button type="button" class="btn ghost" id="import-annuler">Annuler</button>
+      <button type="submit" class="btn primary" id="import-lancer" disabled>Créer le modèle</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Correcteur d'orthographe -->
+<dialog id="dlg-spell" class="dialog dialog-wide">
+  <h3>Correcteur d'orthographe</h3>
+  <div id="spell-progress" class="progress" hidden><div class="spinner"></div><span>Relecture par Claude… <span id="spell-chrono">0 s</span></span></div>
+  <div id="spell-erreur" class="alert error" hidden></div>
+  <div id="spell-resultats" class="spell-list" hidden></div>
+  <p class="hint spell-note">Le texte du document affiché est envoyé à Claude (ta commande <code>claude</code>) pour la relecture. Seules les fautes sont signalées : le style n'est jamais modifié.</p>
+  <div class="row end">
+    <button type="button" class="btn ghost" id="spell-fermer">Fermer</button>
+    <button type="button" class="btn ghost" id="spell-relancer" hidden>Relire à nouveau</button>
+    <button type="button" class="btn" id="spell-tout" hidden>Tout corriger</button>
+    <button type="button" class="btn primary" id="spell-exporter" hidden>⬇ Exporter le PDF</button>
+  </div>
+</dialog>
+
+<!-- Réglages -->
+<dialog id="dlg-settings" class="dialog">
+  <form method="dialog" id="form-settings">
+    <h3>Réglages</h3>
+    <div id="settings-sante" class="sante"></div>
+    <label class="field"><span>Modèle Claude (vide = défaut de Claude Code)</span><input name="claudeModel" placeholder="ex. sonnet, opus"></label>
+    <label class="field"><span>Effort (vide = défaut)</span>
+      <select name="claudeEffort"><option value="">Défaut</option><option value="low">low</option><option value="medium">medium</option><option value="high">high</option></select></label>
+    <label class="field"><span>Chemin de la commande claude (vide = recherche automatique)</span><input name="claudePath" placeholder="ex. /Users/…/.local/bin/claude ou C:\\Users\\…\\.local\\bin\\claude.exe"></label>
+    <label class="check"><input type="checkbox" name="verifierAvantExport"><span>Lancer le correcteur d'orthographe avant chaque export PDF</span></label>
+    <label class="field"><span>Délai maximal d'analyse (secondes)</span><input name="analyseTimeoutS" type="number" min="30" max="900"></label>
+    <div class="row end">
+      <button class="btn ghost" value="cancel">Annuler</button>
+      <button class="btn primary" value="ok">Enregistrer</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toasts" class="toasts"></div>
+<style id="tpl-style"></style>
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>

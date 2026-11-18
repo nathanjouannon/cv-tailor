@@ -1,0 +1,83 @@
+<article class="cv page">
+  <header class="cv-head">
+    <h1 class="cv-name">{{identite.prenom}} {{identite.nom}}</h1>
+    {{#if identite.titre}}<p class="cv-title">{{identite.titre}}</p>{{/if}}
+    <p class="cv-contact">
+      {{#if identite.email}}<span>{{identite.email}}</span>{{/if}}
+      {{#if identite.telephone}}<span>{{identite.telephone}}</span>{{/if}}
+      {{#if identite.adresse}}<span>{{identite.adresse}}</span>{{/if}}
+      {{#each identite.liens}}<span><a href="{{url}}">{{label}}</a></span>{{/each}}
+    </p>
+  </header>
+
+  {{#if resume}}
+  <section class="cv-section cv-resume">
+    <h2>{{titre "resume"}}</h2>
+    <p>{{resume}}</p>
+  </section>
+  {{/if}}
+
+  {{#sections}}
+  <section class="cv-section cv-{{this}}">
+    <h2>{{titre}}</h2>
+
+    {{#is "experiences"}}
+    {{#each experiences}}
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">{{poste}}{{#if entreprise}} <span class="sep">·</span> {{entreprise}}{{/if}}</span>
+        <span class="item-meta">{{#if lieu}}{{lieu}} · {{/if}}{{debut}}{{#if fin}} – {{fin}}{{/if}}</span>
+      </div>
+      {{#if description}}<p class="item-desc">{{description}}</p>{{/if}}
+      {{#if points}}<ul>{{#each points}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+    </div>
+    {{/each}}
+    {{/is}}
+
+    {{#is "formations"}}
+    {{#each formations}}
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">{{diplome}}{{#if etablissement}} <span class="sep">·</span> {{etablissement}}{{/if}}</span>
+        <span class="item-meta">{{#if lieu}}{{lieu}} · {{/if}}{{debut}}{{#if fin}} – {{fin}}{{/if}}</span>
+      </div>
+      {{#if details}}<p class="item-desc">{{details}}</p>{{/if}}
+    </div>
+    {{/each}}
+    {{/is}}
+
+    {{#is "competences"}}
+    <div class="skills">
+      {{#each competences}}
+      <div class="skill-row"><span class="skill-cat">{{categorie}}</span><span class="tags">{{#each items}}<span class="tag">{{this}}</span>{{/each}}</span></div>
+      {{/each}}
+    </div>
+    {{/is}}
+
+    {{#is "projets"}}
+    {{#each projets}}
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">{{nom}}</span>
+        {{#if lien}}<span class="item-meta">{{lien}}</span>{{/if}}
+      </div>
+      {{#if description}}<p class="item-desc">{{description}}</p>{{/if}}
+      {{#if points}}<ul>{{#each points}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+    </div>
+    {{/each}}
+    {{/is}}
+
+    {{#is "langues"}}
+    <p class="inline-list">{{#each langues}}<span><strong>{{langue}}</strong>{{#if niveau}} – {{niveau}}{{/if}}</span>{{#unless @last}}<span class="dot">·</span>{{/unless}}{{/each}}</p>
+    {{/is}}
+
+    {{#is "certifications"}}
+    <ul class="plain">{{#each certifications}}<li><strong>{{nom}}</strong>{{#if organisme}} – {{organisme}}{{/if}}{{#if date}} ({{date}}){{/if}}</li>{{/each}}</ul>
+    {{/is}}
+
+    {{#is "interets"}}
+    <p class="inline-list">{{#each interets}}<span>{{this}}</span>{{#unless @last}}<span class="dot">·</span>{{/unless}}{{/each}}</p>
+    {{/is}}
+  </section>
+  {{/sections}}
+</article>

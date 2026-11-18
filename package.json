@@ -1,0 +1,22 @@
+{
+  "name": "cv-tailor",
+  "version": "0.1.0",
+  "description": "Outil local d'adaptation de CV aux offres d'emploi (analyse ATS via Claude Code, templates HTML/CSS, export PDF).",
+  "private": true,
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js --no-open",
+    "check": "node --check server/index.js && node --check server/lib/analyze.js && node --check server/lib/pdf.js && node --check server/lib/store.js && node --check server/lib/claude.js && node --check server/lib/os.js && node --check server/lib/importer.js && node --check server/lib/letter.js && node --check server/lib/spellcheck.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mammoth": "^1.13.0",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^24.9.0"
+  }
+}

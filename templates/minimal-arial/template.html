@@ -1,0 +1,73 @@
+<article class="cv page">
+  <header class="cv-head">
+    <h1 class="cv-name">{{identite.prenom}} {{identite.nom}}{{#if identite.titre}} - {{identite.titre}}{{/if}}</h1>
+    {{#if identite.email}}<div class="cv-line"><a href="mailto:{{identite.email}}">{{identite.email}}</a>{{#if identite.telephone}} - {{identite.telephone}}{{/if}}</div>{{/if}}
+    {{#unless identite.email}}{{#if identite.telephone}}<div class="cv-line">{{identite.telephone}}</div>{{/if}}{{/unless}}
+    {{#if identite.adresse}}<div class="cv-line plain">{{identite.adresse}}</div>{{/if}}
+    {{#each identite.liens}}<div class="cv-line"><a href="{{url}}">{{label}}</a></div>{{/each}}
+  </header>
+
+  {{#if resume}}
+  <section class="cv-section cv-resume">
+    <p>{{resume}}</p>
+  </section>
+  {{/if}}
+
+  {{#sections}}
+  <section class="cv-section cv-{{this}}">
+    <h2>{{titre}}</h2>
+
+    {{#is "experiences"}}
+    {{#each experiences}}
+    <div class="item">
+      <div class="item-title">{{poste}}</div>
+      <div class="item-meta">{{entreprise}}{{#if lieu}}{{#if entreprise}} - {{/if}}{{lieu}}{{/if}}{{#if debut}}{{#if entreprise}}, {{/if}}{{#unless entreprise}}{{#if lieu}}, {{/if}}{{/unless}}{{debut}}{{#if fin}} - {{fin}}{{/if}}{{/if}}</div>
+      {{#if description}}<p class="item-desc">{{description}}</p>{{/if}}
+      {{#if points}}<ul>{{#each points}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+    </div>
+    {{/each}}
+    {{/is}}
+
+    {{#is "formations"}}
+    {{#each formations}}
+    <div class="item">
+      <div class="item-title">{{diplome}}</div>
+      <div class="item-meta">{{etablissement}}{{#if lieu}}{{#if etablissement}} - {{/if}}{{lieu}}{{/if}}{{#if debut}}{{#if etablissement}}, {{/if}}{{#unless etablissement}}{{#if lieu}}, {{/if}}{{/unless}}{{debut}}{{#if fin}} - {{fin}}{{/if}}{{/if}}</div>
+      {{#if details}}<p class="item-desc dark">{{details}}</p>{{/if}}
+    </div>
+    {{/each}}
+    {{/is}}
+
+    {{#is "competences"}}
+    {{#each competences}}
+    <p class="skill-row"><span class="skill-cat">{{categorie}}:</span> <span class="skill-items">{{#each items}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</span></p>
+    {{/each}}
+    {{/is}}
+
+    {{#is "projets"}}
+    {{#each projets}}
+    <div class="item">
+      <div class="item-title">{{nom}}</div>
+      {{#if lien}}<div class="item-meta">{{lien}}</div>{{/if}}
+      {{#if description}}<p class="item-desc dark">{{description}}</p>{{/if}}
+      {{#if points}}<ul>{{#each points}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+    </div>
+    {{/each}}
+    {{/is}}
+
+    {{#is "langues"}}
+    <p class="skill-row"><span class="skill-cat">{{titre}}:</span> {{#each langues}}<span class="skill-items">{{langue}}{{#if niveau}} ({{niveau}}){{/if}}</span>{{#unless @last}}<span class="skill-items">, </span>{{/unless}}{{/each}}</p>
+    {{/is}}
+
+    {{#is "certifications"}}
+    {{#each certifications}}
+    <p class="skill-row">{{nom}}{{#if organisme}} <span class="skill-items">- {{organisme}}</span>{{/if}}{{#if date}} <span class="skill-items">({{date}})</span>{{/if}}</p>
+    {{/each}}
+    {{/is}}
+
+    {{#is "interets"}}
+    <p class="skill-row"><span class="skill-items">{{#each interets}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</span></p>
+    {{/is}}
+  </section>
+  {{/sections}}
+</article>

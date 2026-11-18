@@ -1,0 +1,165 @@
+{
+  "langue": "fr",
+  "identite": {
+    "prenom": "Camille",
+    "nom": "Martin",
+    "titre": "Développeuse full-stack",
+    "email": "camille.martin@example.com",
+    "telephone": "+33600000000",
+    "adresse": "",
+    "liens": [
+      {
+        "label": "linkedin.com/in/camille-martin-exemple/",
+        "url": "https://linkedin.com/in/camille-martin-exemple/"
+      },
+      {
+        "label": "github.com/camille-martin-exemple",
+        "url": "https://github.com/camille-martin-exemple"
+      }
+    ]
+  },
+  "resume": "Ancienne joueuse de handball en compétition, j'ai acquis le goût de l'effort, de la rigueur et du travail d'équipe. Je souhaite aujourd'hui mettre cet esprit collectif et cette culture du résultat au service d'une équipe produit ambitieuse.",
+  "sections": [
+    "experiences",
+    "formations",
+    "competences",
+    "projets"
+  ],
+  "titres": {
+    "experiences": "Expériences",
+    "competences": "Compétences",
+    "formations": "Formation",
+    "projets": "Projets"
+  },
+  "experiences": [
+    {
+      "poste": "Ingénieure logiciel / Software Engineering",
+      "entreprise": "Exemplia®",
+      "lieu": "Lyon, France",
+      "debut": "07/2024",
+      "fin": "07/2026",
+      "description": "",
+      "points": [
+        "Conception et développement de la plateforme d'administration interne en collaboration directe avec le directeur produit. Inclut un module de validation des dossiers clients ayant réduit le délai moyen de traitement de 4 jours à moins de 12 heures.",
+        "Développement de l'application mobile avec la designer UX/UI, en repensant le parcours d'inscription. Baisse des tickets support de 15/semaine à moins de 2/semaine et réduction notable des abandons.",
+        "Réduction de la dette technique avec le développeur backend via un client HTTP frontend sur mesure, aligné sur les standards de l'API, améliorant la gestion des erreurs et diminuant le nombre de tickets support."
+      ]
+    },
+    {
+      "poste": "Développeuse full-stack",
+      "entreprise": "Exemplia®",
+      "lieu": "Lyon, France",
+      "debut": "04/2023",
+      "fin": "05/2024",
+      "description": "",
+      "points": [
+        "Pilotage de la refonte des workflows de collaboration d'une équipe en croissance : adoption d'un outil de gestion de projet et définition des bonnes pratiques communes.",
+        "Prise en charge du cycle complet de plusieurs fonctionnalités de l'application mobile, de la création du ticket au déploiement sur les stores (App Store et Google Play).",
+        "Conception et développement d'une API REST de parrainage. Cette fonctionnalité a permis de lancer le programme d'affiliation : 70 % des nouveaux comptes proviennent désormais du parrainage."
+      ]
+    }
+  ],
+  "formations": [
+    {
+      "diplome": "Master – Expert en ingénierie du logiciel (Alternance)",
+      "etablissement": "École Exemple",
+      "lieu": "distanciel",
+      "debut": "07/2024",
+      "fin": "07/2026",
+      "details": "Conception, intégration, industrialisation, machine learning, management de projet, relation client, management d'équipe."
+    },
+    {
+      "diplome": "Bachelor – Conception, développement d'application web et mobile",
+      "etablissement": "Académie Démo",
+      "lieu": "distanciel",
+      "debut": "04/2023",
+      "fin": "05/2024",
+      "details": "Conception, backend, web frontend, application mobile et déploiement"
+    },
+    {
+      "diplome": "Licence – Mathématiques et Informatique",
+      "etablissement": "Université Exemple",
+      "lieu": "Lyon, France",
+      "debut": "09/2020",
+      "fin": "05/2022",
+      "details": ""
+    }
+  ],
+  "competences": [
+    {
+      "categorie": "Langages de programmation ",
+      "items": [
+        "Python",
+        "Java",
+        "JavaScript",
+        "TypeScript",
+        "SQL"
+      ]
+    },
+    {
+      "categorie": "Frameworks ",
+      "items": [
+        "React.js",
+        "Vue.js",
+        "React-Native",
+        "Spring",
+        "Django",
+        "Tailwind",
+        "FastApi"
+      ]
+    },
+    {
+      "categorie": "Outils ",
+      "items": [
+        "Git",
+        "Docker",
+        "Google Play Console",
+        "App Store Connect",
+        "REST API",
+        "CI/CD",
+        "Nginx",
+        "Claude code",
+        "Copilot"
+      ]
+    },
+    {
+      "categorie": "Soft skills ",
+      "items": [
+        "Résilience",
+        "écoute active",
+        "communication",
+        "organisation",
+        "autonomie",
+        "rigueur",
+        "adaptabilité"
+      ]
+    },
+    {
+      "categorie": "Langues",
+      "items": [
+        "Français (natif)",
+        "Anglais (courant)"
+      ]
+    }
+  ],
+  "projets": [
+    {
+      "nom": "TaskBoard",
+      "lien": "https://github.com/camille-martin-exemple/TaskBoard",
+      "description": "Application web open source de gestion de tâches pour petites associations. Développée avec TypeScript, Next.js, Prisma, PostgreSQL, Zod, Tailwind et Docker.",
+      "points": []
+    },
+    {
+      "nom": "TrailTracker",
+      "lien": "https://github.com/camille-martin-exemple/TrailTracker",
+      "description": "Application de suivi de randonnées dans le navigateur : import de traces GPX, profil d'altitude, statistiques par sortie et carte interactive.",
+      "points": []
+    }
+  ],
+  "langues": [],
+  "certifications": [],
+  "interets": [],
+  "nom": "CV_Exemple_FR",
+  "template": "minimal-arial",
+  "id": "CV_Exemple_FR"
+}

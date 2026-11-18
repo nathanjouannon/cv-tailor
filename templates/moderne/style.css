@@ -1,0 +1,47 @@
+/* Template « Moderne » — une colonne, sans-serif, bandeau coloré. Toutes les règles sont préfixées .cv */
+@page { size: A4; margin: 0; }
+:root { --accent: #0f766e; }
+.cv.page {
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 0 0 12mm;
+  background: #fff;
+  color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  line-height: 1.4;
+}
+.cv a { color: inherit; text-decoration: none; }
+.cv .cv-contact span { white-space: nowrap; }
+.cv .item, .cv .skill-row { break-inside: avoid; }
+.cv .cv-section h2 { break-after: avoid; }
+.cv .cv-head { background: var(--accent); color: #fff; padding: 12mm 16mm 9mm; margin-bottom: 4mm; }
+.cv .cv-name { margin: 0; font-size: 26pt; font-weight: 700; letter-spacing: -0.3px; line-height: 1.1; }
+.cv .cv-title { margin: 1.5mm 0 0; font-size: 12.5pt; font-weight: 400; opacity: 0.92; }
+.cv .cv-contact { margin: 3.5mm 0 0; font-size: 9pt; opacity: 0.9; display: flex; flex-wrap: wrap; gap: 1mm 5mm; }
+.cv .cv-section { margin: 4.5mm 16mm 0; }
+.cv .cv-section h2 {
+  margin: 0 0 2.5mm; font-size: 10pt; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--accent);
+  display: flex; align-items: center; gap: 3mm;
+}
+.cv .cv-section h2::after { content: ""; flex: 1; height: 1px; background: #e5e7eb; }
+.cv .cv-resume p { margin: 0; color: #374151; }
+.cv .item { margin-bottom: 3.2mm; }
+.cv .item:last-child { margin-bottom: 0; }
+.cv .item-head { display: flex; justify-content: space-between; gap: 6mm; align-items: baseline; }
+.cv .item-title { font-weight: 700; font-size: 10.5pt; }
+.cv .item-title .sep { color: var(--accent); font-weight: 400; }
+.cv .item-meta { font-size: 9pt; color: #6b7280; white-space: nowrap; }
+.cv .item-desc { margin: 0.8mm 0 0; color: #374151; }
+.cv ul { margin: 1mm 0 0; padding-left: 4.5mm; }
+.cv li { margin: 0 0 0.6mm; }
+.cv li::marker { color: var(--accent); }
+.cv ul.plain { list-style: none; padding: 0; }
+.cv .skills { display: grid; gap: 1.6mm; }
+.cv .skill-row { display: flex; gap: 3mm; align-items: baseline; }
+.cv .skill-cat { flex: 0 0 32mm; font-weight: 700; font-size: 9.5pt; }
+.cv .tags { display: flex; flex-wrap: wrap; gap: 1.2mm; }
+.cv .tag { display: inline-block; padding: 0.4mm 2.2mm; border: 1px solid #d1d5db; border-radius: 3mm; font-size: 9pt; color: #374151; background: #f9fafb; }
+.cv .inline-list { margin: 0; }
+.cv .inline-list .dot { margin: 0 2mm; color: var(--accent); }

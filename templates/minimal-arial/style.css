@@ -1,0 +1,48 @@
+/* Template « Minimal Arial » — une colonne, très sobre. */
+@page { size: A4; margin: 0; }
+:root { --accent: #222222; }
+.cv.page {
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 19mm 19mm 14mm 20mm;
+  background: #fff;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9.5pt;
+  line-height: 1.12;
+}
+.cv a { color: #555; text-decoration: underline; }
+.cv .item, .cv .skill-row { break-inside: avoid; }
+.cv .cv-section h2 { break-after: avoid; }
+.cv .cv-head { margin: 0 0 6mm; }
+.cv .cv-name { margin: 0; font-size: 12pt; font-weight: 400; color: var(--accent); line-height: 1.1; }
+.cv .cv-line { font-size: 9.5pt; color: #555; line-height: 1.1; }
+.cv .cv-line a { color: #555; }
+.cv .cv-section { margin-top: 4.5mm; }
+.cv .cv-resume { margin-top: 0; }
+.cv .cv-resume p { margin: 0; line-height: 1.1; }
+.cv .cv-section h2 {
+  margin: 0 0 0.8mm; padding-bottom: 0.3mm;
+  font-size: 12pt; font-weight: 400; letter-spacing: 0.2px;
+  color: var(--accent); border-bottom: 1px solid #888;
+  line-height: 1.2;
+}
+.cv .cv-langues { margin-top: 0; }
+.cv .cv-langues h2 { display: none; }
+.cv .item { margin-bottom: 3.2mm; }
+.cv .item:last-child { margin-bottom: 0; }
+.cv .item-title { font-size: 11pt; font-weight: 400; color: #000; line-height: 1.1; }
+.cv .item-meta { font-size: 9.5pt; color: #777; margin-bottom: 1.2mm; line-height: 1.1; }
+.cv .item-desc { margin: 0; color: #444; }
+.cv .item-desc.dark { color: #000; }
+.cv ul { margin: 0; padding-left: 3.2mm; list-style: none; }
+.cv li { position: relative; margin: 0; line-height: 1.02; }
+.cv li::before { content: "•"; position: absolute; left: -3.2mm; }
+.cv .skill-row { margin: 0 0 1.3mm; font-size: 9.5pt; line-height: 1.12; }
+.cv .skill-items { color: #777; font-size: 9pt; }
+
+@page { size: A4; margin: 0; }
+.cv.page { box-sizing: border-box; width: 210mm; min-height: 297mm; }
+@page { size: A4; margin: 0; }
+.cv.page { box-sizing: border-box; width: 210mm; min-height: 297mm; }

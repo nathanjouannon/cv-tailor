@@ -1,0 +1,12 @@
+node_modules/
+data/candidatures/*
+!data/candidatures/.gitkeep
+data/exports/*
+!data/exports/.gitkeep
+data/config.local.json
+.DS_Store
+*.log
+templates/_sources/*
+!templates/_sources/README.md
+data/modeles/*
+!data/modeles/CV_Exemple_FR.json

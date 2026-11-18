@@ -1,0 +1,8 @@
+{
+  "port": 3030,
+  "ouvrirNavigateur": true,
+  "claudeModel": "sonnet",
+  "claudeEffort": "medium",
+  "claudePath": "",
+  "analyseTimeoutMs": 180000
+}
